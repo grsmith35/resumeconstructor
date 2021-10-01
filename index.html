@@ -46,7 +46,7 @@
                                 <input type="text" placeholder="City" id="city" class="form-control">
                             </div>
                             <div class="col-3">
-                                <select name="state" id="state" class="form-select form-select-lg">
+                                <select name="state" id="state" class="form-select form-select-lg form-control">
                                     <option value="" selected="selected">Select a State</option>
                                     <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
@@ -110,6 +110,7 @@
                                     <input type="text" placeholder="Email Address" id="email" class="form-control">
                                 </div>
                             </div>
+                            <hr>
                             <div>
                             <div class="row">
                                 <h3 class="ml-3">Current job</h3>
@@ -119,21 +120,20 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <h3 class="ml-3">Current job</h3>
-                                <div class="form-check">
-                                    <label class="from-check-label" for="notworking">I am not currently working</label>
-                                    <input type="checkbox" name="notworking" id="notworking" class="from-check-input">
+                                <div class="col-md-6">
+                                    <input type="text" name="currentjobtitle" id="currentjobtitle" class="form-control" placeholder="Job Title">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="currentjobcompany" id="currentjobcompany" class="form-control" placeholder="Company">
                                 </div>
                             </div>
                             <div class="row">
-                                <h3 class="ml-3">Current job</h3>
                                 <div class="form-check">
-                                    <label class="from-check-label" for="notworking">I am not currently working</label>
-                                    <input type="checkbox" name="notworking" id="notworking" class="from-check-input">
+                                    <textarea name="jobdescription" id="currentjobdescription" cols="50" rows="5" placeholder="Job Summary" class="form-control mt-3"></textarea>
+                                    
                                 </div>
                             </div>
                             <div class="row">
-                                <h3 class="ml-3">Current job</h3>
                                 <div class="form-check">
                                     <label class="from-check-label" for="notworking">I am not currently working</label>
                                     <input type="checkbox" name="notworking" id="notworking" class="from-check-input">
