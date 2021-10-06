@@ -5,3 +5,7 @@
 .bg-color-blue {
     background-color: rgba(50, 50, 248, .75);
 }
+
+.bg-color-footer {
+    background-color: rgba(50, 50, 248, .50);
+}

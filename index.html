@@ -104,14 +104,14 @@
                             <div class="col-3">
                                 <input type="text" placeholder="Zip Code" id="zip" class="form-control">
                             </div>
-                        </div id="currentjob">
-                            <div class="row mb-3 border-bottom-1">
-                                <div class="col-12">
-                                    <input type="text" placeholder="Email Address" id="email" class="form-control">
-                                </div>
+                        </div>
+                        <div class="row mb-3 border-bottom-1">
+                            <div class="col-12">
+                                <input type="text" placeholder="Email Address" id="email" class="form-control">
                             </div>
-                            <hr>
-                            <div>
+                        </div>
+                        <hr>
+                        <div id="currentjob">
                             <div class="row">
                                 <h3 class="ml-3">Current job</h3>
                                 <div class="form-check">
@@ -128,18 +128,99 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="form-check">
-                                    <textarea name="jobdescription" id="currentjobdescription" cols="50" rows="5" placeholder="Job Summary" class="form-control mt-3"></textarea>
-                                    
+                                <div class=" col-md-6">
+                                    <textarea name="jobdescription" id="currentjobdescription" cols="51" rows="5" placeholder="Job Summary" class="form-control mt-3"></textarea>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-check">
-                                    <label class="from-check-label" for="notworking">I am not currently working</label>
-                                    <input type="checkbox" name="notworking" id="notworking" class="from-check-input">
+                                <div class="col-md-3 form-check">
+                                    <label for="dateinputfield">Start Date</label>
+                                    <input type="date" id="dateinputfield" class="form-control">
                                 </div>
                             </div>
                         </div>
+                        <hr>
+                        <div id="pastjob">
+                            <div class="row">
+                                <h3 class="ml-3">Work History</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="text" name="worktitle" id="pastjobtitle" class="form-control" placeholder="Job Title">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="workcompany" id="pastjobcompany" class="form-control" placeholder="Company">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class=" col-md-6">
+                                    <textarea name="pastjobdescription" id="pastjobdescription" cols="51" rows="5" placeholder="Job Summary" class="form-control mt-3"></textarea>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="startdateinputfield">Start Date</label>
+                                    <input type="date" id="startdateinputfield" class="form-control">
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="row">
+                                        <label for="emddateinputfield">End Date</label>
+                                        <input type="date" id="enddateinputfield" class="form-control mr-3">
+                                    </div>
+                                    <div class="row mt-3">
+                                        <button type="button" class="btn btn-primary">Add Another Job</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div id="education">
+                            <div class="row">
+                                <h3 class="ml-3">Education</h3>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <label for="educationschool" class="form-label">Degree Earned</label>
+                                </div>
+                                <div class="col-md-6 form-check">
+                                    <input type="text" name="education" id="educationscool" class="form-control" placeholder="Degree Earned">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <label for="school" class="form-label">School</label>
+                                </div>
+                                <div class="col-md-6 form-check">
+                                    <input type="text" name="school" id="school" class="form-control" placeholder="School Name">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <label for="year" class="form-label">Year Earned</label>
+                                </div>
+                                <div class="col-md-6 form-check">
+                                    <input type="text" name="year" id="year" class="form-control" placeholder="Year Earned">
+                                </div>
+                            </div>
+                            <div class="row m-3">
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary">Add Additional Education</button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div id="Skills">
+                            <div class="row">
+                                <h3 class="ml-3">Skills</h3>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <input type="text" name="skill" id="skill" class="form-control" placeholder="">
+                                </div>
+                            </div>
+                            <div class="row m-3">
+                                <div class="row">
+                                    <button type="button" class="btn btn-primary">Add Additional Skills</button>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                     </form>
                 </div>
                 <div class="col-3 bg-color-blue">
@@ -149,6 +230,31 @@
             
         </div>
     </main>
+    <footer class="bg-color-footer">
+        <div class="container">
+            <div class="row position-relative">
+                <div class="col-md-3 position-absolute top-100 start-100 translate-middle">
+                    <a href="youremploymentsolutions.com">
+                        <img src="./assets/images/your-employment-solutions.png" alt="YES 20 years in business image">
+                    </a>
+                </div>
+                <div class="col-md-3 position-absolute top-0 start-0 translate-middle">
+                    <h4>Check out more about Your Employment Solutions</h4>
+                    <ul class="list-unstyled text-muted">
+                        <li class="mb-2">
+                            <a href="https://youremploymentsolutions.com">YES Website</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://yss.avionte.com/yes-job-board">YES Job Board</a>
+                        </li>
+                        <li class="mb-2">
+                            <a href="https://www.youtube.com/c/YourEmploymentSolutionsYES">YES Youtube</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
     
 </body>
 </html>
