@@ -13,6 +13,7 @@
             <div class="px-3 py-2 bg-dark text-white">
                 <div class="container">
                     <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                        <img src="./assets/images/yes-oval-white.png" alt="YES Logo" class="mr-2">
                         <h1 class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white">Resume Builder</h1>
                     </div>
                 </div>
@@ -23,6 +24,7 @@
                 <div class="row">
                     <div class="col-md-9 bg-color-lightgray">
                         <form action="">
+                            <h3 class="mt-3">Personal Information</h3>
                             <div class="row mt-3">
                                 <div class="col-md-6 mb-3">
                                     <input type="text" placeholder="Full Name" id="full-name" class="form-control">
@@ -114,26 +116,34 @@
                             <div id="currentjob">
                                 <div class="row">
                                     <h3 class="ml-3">Current job</h3>
+                                </div>                         
+                                <div class="row">
                                     <div class="form-check">
                                         <label class="from-check-label" for="notworking">I am not currently working</label>
-                                        <input type="checkbox" name="notworking" id="notworking" class="from-check-input">
+                                        <input type="checkbox" name="notworking" id="notworkingbox" class="from-check-input">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <input type="text" name="currentjobtitle" id="currentjobtitle" class="form-control" placeholder="Job Title">
+                                <div id="currentjobsect">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <input type="text" name="currentjobtitle" id="currentjobtitle" class="form-control" placeholder="Job Title">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="text" name="currentjobcompany" id="currentjobcompany" class="form-control" placeholder="Company">
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <input type="text" name="currentjobcompany" id="currentjobcompany" class="form-control" placeholder="Company">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class=" col-md-6">
-                                        <textarea name="jobdescription" id="currentjobdescription" cols="51" rows="5" placeholder="Job Summary" class="form-control mt-3"></textarea>
-                                    </div>
-                                    <div class="col-md-3 form-check">
-                                        <label for="dateinputfield">Start Date</label>
-                                        <input type="date" id="dateinputfield" class="form-control">
+                                    <div class="row">
+                                        <div class=" col-md-6">
+                                            <textarea name="jobdescription" id="currentjobdescription" cols="50" rows="5" placeholder="Job Summary" class="form-control mt-3"></textarea>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <label for="dateinputfield" class="mx-3">Start Date</label>
+                                            </div>
+                                            <div class="row">
+                                                <input type="date" id="dateinputfield" class="form-control mx-3">
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +153,7 @@
                                     <h3 class="ml-3">Work History</h3>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6 input mb-3">
+                                    <div class="col-md-6 mb-3">
                                         <input type="text" name="worktitle" id="pastjobtitle" class="form-control" placeholder="Job Title">
                                     </div>
                                     <div class="col-md-6">
@@ -159,10 +169,10 @@
                                         <input type="date" id="startdateinputfield" class="form-control">
                                     </div>
                                     <div class="col-md-3">
-                                        <label for="emddateinputfield">End Date</label>
+                                        <label for="edddateinputfield">End Date</label>
                                         <input type="date" id="enddateinputfield" class="form-control">
                                         <div class="row mt-3">
-                                            <button type="button" class="btn btn-primary">Add Another Job</button>
+                                            <button type="button" id="addjobbtn" class="btn btn-primary">Add Another Job</button>
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +208,7 @@
                                 </div>
                                 <div class="row m-3">
                                     <div class="row">
-                                        <button type="button" class="btn btn-primary">Add Additional Education</button>
+                                        <button type="button" class="btn btn-primary" id="addedubtn">Add Additional Education</button>
                                     </div>
                                 </div>
                             </div>
@@ -207,14 +217,16 @@
                                 <div class="row">
                                     <h3 class="ml-3">Skills</h3>
                                 </div>
-                                <div class="row mt-3">
-                                    <div class="col-md-6">
-                                        <input type="text" name="skill" id="skill" class="form-control" placeholder="">
+                                <div id="skillsarea">
+                                    <div class="row mt-3">
+                                        <div class="col-md-6">
+                                            <input type="text" name="skill" id="skill" class="form-control" placeholder="">
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="row m-3">
                                     <div class="row">
-                                        <button type="button" class="btn btn-primary">Add Additional Skills</button>
+                                        <button type="button" id="addskillbtn" class="btn btn-primary">Add Additional Skills</button>
                                     </div>
                                 </div>
                             </div>
@@ -222,7 +234,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
-                                        <button class="btn btn-success">Create Resume</button>
+                                        <button type="button" class="btn btn-success" id="createbtn">Create Resume</button>
                                     </div>
                                 </div>
                             </div>
@@ -259,6 +271,7 @@
                 </div>
             </div>
         </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="./assets/js/script.js"></script>
     </body>
 </html>
