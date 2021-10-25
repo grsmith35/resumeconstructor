@@ -1,6 +1,17 @@
 console.log("It's working!");
 let jobcounter = 2;
 let educationcounter = 2;
+let jobs = [];
+const addJobs = () => {
+    jobs.push({
+        id: Date.now(),
+        jobTitle: '',
+        company: '',
+        summary: '',
+        startDate: '',
+        endDate: ''
+    })
+}
 
 var addJob = function() {
     var jobSection = document.querySelector("#pastjob");
@@ -93,11 +104,52 @@ var addSkill = function() {
     skillsect.appendChild(newSkill);
 };
 
+var renderJobs = function() {
+    console.log(jobs)
+    for(let i = 0; i < jobs.length; i++){
+        var jobSection = document.querySelector("#pastJob");
+        var newjobArea = document.createElement("div");
+        var title = document.createElement('h3');
+        title.textContent = `Work Histroy ${i + 1}`;
+        var jobInfo = document.createElement('div');
+        jobInfo.classList = 'row';
+        var firstBox = document.createElement('div');
+        firstBox.classList = 'col-md-6 input mb-3';
+        var jobTitle = document.createElement('input');
+        jobTitle.classList ='form-control';
+        // Object.assign(jobTitle, {
+        //     type: 'text',
+        //     name: 'worktitle',
+        //     id: 'pastjobtitle',
+        //     placeholder: 'Job Title'
+        // });
+        var secondbox = document.createElement('div');
+        secondbox.classList = 'col-md-6';
+        var companyName = document.createElement('input');
+        // Object.assign(companyName, {
+        //     type: 'text',
+        //     name: 'workcompany',
+        //     id: 'pastjobcompany',
+        //     class: 'form-control',
+        //     placeholder: 'Company'
+        // });
+        console.log('adding all the boxes')
+        firstBox.appendChild(jobTitle);
+        secondbox.appendChild(companyName);
+        jobInfo.appendChild(firstBox, secondbox);
+        newjobArea.appendChild(jobInfo);
+        jobSection.appendChild(newjobArea);
+    }
+    
+}
+
 var createResume = function() {
     //start to get all the info from the form 
     console.log('created!');
 };
 
+addJobs();
+renderJobs();
 document.getElementById("createbtn").addEventListener("click", createResume);
 document.getElementById("addskillbtn").addEventListener("click", addSkill);
 document.getElementById("addjobbtn").addEventListener("click", addJob);
