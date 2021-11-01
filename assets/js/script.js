@@ -32,13 +32,22 @@ const addJobs = () => {
         startDate: '',
         endDate: ''
     })
-    console.log(jobs);
     renderJobs();
+}
+
+var deleteEdu = (id) => {
+    education = education.filter(edu => edu.id !== id);
+    renderEducation()
 }
 
 var deleteJob = (id) => {
     jobs = jobs.filter(j => j.id !== id);
     renderJobs();
+}
+
+var deleteSkill = (id) => {
+    skills = skills.filter(skill => skill.id !== id);
+    renderSkills();
 }
 
 var addEducation = function() {
@@ -83,7 +92,98 @@ var addEducation = function() {
     document.getElementById("addedubtn").addEventListener("click", addEducation);
 }
 
+var renderEducation = function() {
+    //create variable for main education area
+    var educationArea = document.querySelector('#education');
+    //clear education area before each render
+    educationArea.innerHTML = "";
+    for (let i = 0; i < education.length; i++) {
+        //create title div for section
+        var titleDiv = document.createElement('div');
+        titleDiv.classList = 'row';
+        var title = document.createElement('h3');
+        title.classList ='mx-3';
+        title.textContent = `Education ${i + 1}`;
+        //add title to title div and insert into education area
+        titleDiv.appendChild(title);
+        //if its not the first one, add delete button
+        if(i !== 0) {
+            var edudelBtn = document.createElement('button');
+            edudelBtn.classList = 'btn btn-outline-danger mb-2';
+            edudelBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>`
+            titleDiv.appendChild(edudelBtn);
+            edudelBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                deleteEdu(education[i].id);
+            })
+        }
+        educationArea.appendChild(titleDiv);
+        //create div row for degree earned
+        var earnedDegree = document.createElement('div');
+        earnedDegree.classList ='row';
+        var earnedCol = document.createElement('div');
+        earnedCol.classList = 'col-md-6 mb-3';
+        //create education input
+        var earnedInput = document.createElement('input');
+        earnedInput.classList ='form-control';
+        earnedInput.setAttribute('type', 'text');
+        earnedInput.setAttribute('placeholder', 'Degree Earned')
+        //insert input into earned div
+        earnedCol.appendChild(earnedInput)
+        earnedDegree.appendChild(earnedCol);
+        //insert degree row into area
+        educationArea.appendChild(earnedDegree);
+        //create row div for the school
+        var schoolDiv = document.createElement('div');
+        schoolDiv.classList ='row';
+        var schoolCol = document.createElement('div');
+        schoolCol.classList = 'col-md-6 mb-3';
+        //create school input
+        var school = document.createElement('input');
+        school.classList ='form-control';
+        school.setAttribute('type', 'text');
+        school.setAttribute('placeholder', 'School Name');
+        //insert input into school div
+        schoolCol.appendChild(school)
+        schoolDiv.appendChild(schoolCol);
+        //insert school div into education
+        educationArea.appendChild(schoolDiv);
+        //create div for year earned div
+        var yearDiv = document.createElement('div');
+        yearDiv.classList = 'row';
+        var yearCol = document.createElement('div');
+        yearCol.classList = 'col-md-6 mb-3';
+        //create input box
+        var year = document.createElement('input');
+        year.classList = 'form-control';
+        year.setAttribute('type', 'text');
+        year.setAttribute('placeholder', 'Year Earned');
+        //add input to div
+        yearCol.appendChild(year)
+        yearDiv.appendChild(yearCol);
+        //add div to area
+        educationArea.appendChild(yearDiv);
+        if(i+1 === education.length) {
+            //create the add additional school button
+            var addeduBtnDiv = document.createElement('div');
+            addeduBtnDiv.classList ='row';
+            //create btn
+            var addEduBtn = document.createElement('button');
+            addEduBtn.classList = 'btn btn-primary mx-auto';
+            addEduBtn.textContent = 'Add Additional Education';
+            //add btn to div
+            addeduBtnDiv.appendChild(addEduBtn);
+            educationArea.appendChild(addeduBtnDiv);
+            addeduBtnDiv.addEventListener('click', addEd);
+        }
+    }
+}
+
 var renderSkills = function() {
+    console.log(skills)
     var skillsect = document.querySelector("#skillsarea");
     skillsect.innerHTML = "";
     for(let i = 0; i < skills.length; i++) {
@@ -92,19 +192,40 @@ var renderSkills = function() {
         var newSkill = document.createElement("div");
         newSkill.classList = 'col-md-6';
         var skillBox = document.createElement('input');
-        skillBox.classList = 'form-control';
+        skillBox.classList = 'form-control mb-3';
         skillBox.setAttribute('type', 'text');
         skillBox.setAttribute('name', 'skill');
         skillBox.setAttribute('placeholder', 'Skill');
+        var skilldelbox = document.createElement('div');
+        skilldelbox.classList = 'col-md 6';
         var skilldelBtn = document.createElement('button');
         skilldelBtn.classList = 'btn btn-outline-danger mb-2 mx-2';
         skilldelBtn.innerHTML = "btn btn-outline-danger mb-2 mx-2";
-        delButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+        skilldelBtn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
         <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
         <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
         </svg>`;
-        newSkill.a
-        skillsect.appendChild(newSkill);
+        newSkill.appendChild(skillBox);
+        skillrow.appendChild(newSkill);
+        if(i !== 0) {
+            skilldelbox.appendChild(skilldelBtn);
+            skillrow.appendChild(skilldelbox);
+            skilldelBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                deleteSkill(skills[i].id);
+            })
+        }
+        skillsect.appendChild(skillrow);
+        if(i + 1 === skills.length) {
+            var addskillbox = document.createElement('div');
+            addskillbox.classList = 'col-md-5';
+            var addskillbtn = document.createElement('button');
+            addskillbtn.classList = 'btn btn-primary';
+            addskillbtn.textContent = 'Add Skill';
+            addskillbox.appendChild(addskillbtn);
+            skillsect.appendChild(addskillbox);
+            addskillbtn.addEventListener('click',addSkill);
+        }
     }
     
 };
@@ -238,11 +359,12 @@ var createResume = function() {
 };
 
 addJobs();
-renderJobs();
+addSkill();
+addEd();
 document.getElementById("createbtn").addEventListener("click", createResume);
-document.getElementById("addskillbtn").addEventListener("click", addSkill);
+//document.getElementById("addskillbtn").addEventListener("click", addSkill);
 //document.getElementById("addjobbtn").addEventListener("click", addJob);
-document.getElementById("addedubtn").addEventListener("click", addEducation);
+//document.getElementById("addedubtn").addEventListener("click", addEducation);
 var checkbox = document.querySelector("#notworkingbox");
 checkbox.addEventListener("change", function() {
     if(this.checked) {
