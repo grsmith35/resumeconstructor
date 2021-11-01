@@ -1,4 +1,5 @@
 console.log("It's working!");
+const doc = require('./test');
 let jobcounter = 2;
 let educationcounter = 2;
 let jobs = [];
@@ -15,6 +16,18 @@ const addEd = () => {
     renderEducation();
 };
 
+const editEdu = (id, educationF, school, year ) => {
+    const edufound = educationF.filter(edu => edu.id === id);
+    console.log(id);
+    if(edufound) {
+        console.log('there was a job')
+        edufound[degEarned] = education;
+        edufound[school] = school;
+        edufound[yearEarned] = year;
+    }
+    renderEducation();
+}
+
 const addSkill =() => {
     skills.push({
         id: Date.now(),
@@ -22,6 +35,10 @@ const addSkill =() => {
     })
     renderSkills();
 };
+
+const editSkill = () => {
+
+}
 
 const addJobs = () => {
     jobs.push({
@@ -33,6 +50,10 @@ const addJobs = () => {
         endDate: ''
     })
     renderJobs();
+}
+
+const editJob = () => {
+
 }
 
 var deleteEdu = (id) => {
@@ -50,54 +71,14 @@ var deleteSkill = (id) => {
     renderSkills();
 }
 
-var addEducation = function() {
-    var educationsect = document.querySelector("#education");
-    var neweducationArea = document.createElement("div");
-    neweducationArea.innerHTML = 
-    '<hr>'+
-    '<h3>Education #' + educationcounter + '</h3>' +
-    '<div class="row mt-3">'+
-        '<div class="col-md-3">'+
-            '<label for="educationschool" class="form-label">Degree Earned</label>'+
-        '</div>'+
-        '<div class="col-md-6 form-check">'+
-            '<input type="text" name="education" id="educationscool" class="form-control" placeholder="Degree Earned">'+
-        '</div>'+
-    '</div>'+
-    '<div class="row mt-3">'+
-        '<div class="col-md-3">'+
-            '<label for="school" class="form-label">School</label>'+
-        '</div>'+
-        '<div class="col-md-6 form-check">'+
-            '<input type="text" name="school" id="school" class="form-control" placeholder="School Name">'+
-        '</div>'+
-    '</div>'+
-    '<div class="row mt-3">'+
-        '<div class="col-md-3">'+
-            '<label for="year" class="form-label">Year Earned</label>'+
-        '</div>'+
-        '<div class="col-md-6 form-check">'+
-            '<input type="text" name="year" id="year" class="form-control" placeholder="Year Earned">'+
-        '</div>'+
-    '</div>'+
-    '<div class="row m-3">'+
-        '<div class="row">'+
-            '<button type="button" class="btn btn-primary" id="addedubtn">Add Additional Education</button>'+
-        '</div>'+
-    '</div>';
-    educationcounter += 1;
-    educationsect.appendChild(neweducationArea);
-    var edubtnrmv = document.querySelector("#addedubtn");
-    edubtnrmv.remove();
-    document.getElementById("addedubtn").addEventListener("click", addEducation);
-}
-
 var renderEducation = function() {
     //create variable for main education area
     var educationArea = document.querySelector('#education');
     //clear education area before each render
     educationArea.innerHTML = "";
     for (let i = 0; i < education.length; i++) {
+        //create form element
+        var educationForm = document.createElement('form');
         //create title div for section
         var titleDiv = document.createElement('div');
         titleDiv.classList = 'row';
@@ -120,7 +101,7 @@ var renderEducation = function() {
                 deleteEdu(education[i].id);
             })
         }
-        educationArea.appendChild(titleDiv);
+        educationForm.appendChild(titleDiv);
         //create div row for degree earned
         var earnedDegree = document.createElement('div');
         earnedDegree.classList ='row';
@@ -135,7 +116,7 @@ var renderEducation = function() {
         earnedCol.appendChild(earnedInput)
         earnedDegree.appendChild(earnedCol);
         //insert degree row into area
-        educationArea.appendChild(earnedDegree);
+        educationForm.appendChild(earnedDegree);
         //create row div for the school
         var schoolDiv = document.createElement('div');
         schoolDiv.classList ='row';
@@ -150,7 +131,7 @@ var renderEducation = function() {
         schoolCol.appendChild(school)
         schoolDiv.appendChild(schoolCol);
         //insert school div into education
-        educationArea.appendChild(schoolDiv);
+        educationForm.appendChild(schoolDiv);
         //create div for year earned div
         var yearDiv = document.createElement('div');
         yearDiv.classList = 'row';
@@ -165,7 +146,8 @@ var renderEducation = function() {
         yearCol.appendChild(year)
         yearDiv.appendChild(yearCol);
         //add div to area
-        educationArea.appendChild(yearDiv);
+        educationForm.appendChild(yearDiv);
+        educationArea.appendChild(educationForm);
         if(i+1 === education.length) {
             //create the add additional school button
             var addeduBtnDiv = document.createElement('div');
@@ -179,6 +161,11 @@ var renderEducation = function() {
             educationArea.appendChild(addeduBtnDiv);
             addeduBtnDiv.addEventListener('click', addEd);
         }
+        educationForm.addEventListener('change', function(e) {
+            e.preventDefault();
+            console.log(e)
+            editEdu(education[i].id, earnedInput.value.trim(), school.value.trim(), year.value.trim())
+        })
     }
 }
 
@@ -354,17 +341,21 @@ var renderJobs = function() {
 }
 
 var createResume = function() {
-    //start to get all the info from the form 
-    console.log('created!');
+    const address = document.querySelector('#address-2').value.trim();
+    const fullName = document.querySelector('#full-name').value.trim();
+    const addressLineTwo = document.querySelector('#address-2').value.trim();
+    const city = document.querySelector('#city').value.trim();
+    const state = document.querySelector('#state').value.trim();
+    const zip = document.querySelector('#zip').value.trim();
+    const phone = document.querySelector('#number').value.trim();
+    const email = document.querySelector('#email').value.trim();
+    doc(fullName, address, city, state, zip, phone, email);
 };
 
 addJobs();
 addSkill();
 addEd();
 document.getElementById("createbtn").addEventListener("click", createResume);
-//document.getElementById("addskillbtn").addEventListener("click", addSkill);
-//document.getElementById("addjobbtn").addEventListener("click", addJob);
-//document.getElementById("addedubtn").addEventListener("click", addEducation);
 var checkbox = document.querySelector("#notworkingbox");
 checkbox.addEventListener("change", function() {
     if(this.checked) {

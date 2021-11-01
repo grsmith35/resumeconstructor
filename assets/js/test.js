@@ -29,3 +29,5 @@ const doc = new docx.Document({
 docx.Packer.toBuffer(doc).then((buffer) => {
     fs.writeFileSync("My Document.docx", buffer);
 });
+
+module.exports = doc;
