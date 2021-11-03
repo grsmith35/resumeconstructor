@@ -1,5 +1,5 @@
 console.log("It's working!");
-const doc = require('./test');
+//const doc = require('./test');
 let jobcounter = 2;
 let educationcounter = 2;
 let jobs = [];
@@ -342,7 +342,7 @@ var renderJobs = function() {
 
 var createResume = function() {
     const address = document.querySelector('#address-2').value.trim();
-    const fullName = document.querySelector('#full-name').value.trim();
+    const fullName = document.querySelector('#gfull-name').value.trim();
     const addressLineTwo = document.querySelector('#address-2').value.trim();
     const city = document.querySelector('#city').value.trim();
     const state = document.querySelector('#state').value.trim();
