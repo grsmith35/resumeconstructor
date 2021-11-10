@@ -16,17 +16,15 @@ const addEd = () => {
     renderEducation();
 };
 
-const editEdu = (id, educationF, school, year ) => {
-    const edufound = educationF.filter(edu => edu.id === id);
-    console.log(id);
+const editEdu = (i, educationF, school, year ) => {
+    let edufound = education[i];
     if(edufound) {
-        console.log('there was a job')
-        edufound[degEarned] = education;
-        edufound[school] = school;
-        edufound[yearEarned] = year;
+        education[i]['degEarned'] = educationF;
+        education[i]['school'] = school;
+        education[i]['yearEarned'] = year;
     }
     renderEducation();
-}
+};
 
 const addSkill =() => {
     skills.push({
@@ -36,8 +34,9 @@ const addSkill =() => {
     renderSkills();
 };
 
-const editSkill = () => {
-
+const editSkill = (i, skill) => {
+    skills[i]['name'] = skill;
+    renderSkills();
 }
 
 const addJobs = () => {
@@ -52,8 +51,13 @@ const addJobs = () => {
     renderJobs();
 }
 
-const editJob = () => {
-
+const editJob = (i, jobtitle, company, summary, startd, endd) => {
+    jobs[i]['jobTitle'] = jobtitle;
+    jobs[i]['company'] = company;
+    jobs[i]['summary'] = summary;
+    jobs[i]['startDate'] = startd;
+    jobs[i]['endDate'] = endd;
+    renderJobs();
 }
 
 var deleteEdu = (id) => {
@@ -111,7 +115,13 @@ var renderEducation = function() {
         var earnedInput = document.createElement('input');
         earnedInput.classList ='form-control';
         earnedInput.setAttribute('type', 'text');
-        earnedInput.setAttribute('placeholder', 'Degree Earned')
+        console.log('hey'+education[i].degEarned+'sir')
+        if(education[i].degEarned === '') {
+            console.log('in the if')
+            earnedInput.setAttribute('placeholder', 'Degree Earned')
+        } else {
+            earnedInput.value = education[i].degEarned;
+        }
         //insert input into earned div
         earnedCol.appendChild(earnedInput)
         earnedDegree.appendChild(earnedCol);
@@ -126,7 +136,11 @@ var renderEducation = function() {
         var school = document.createElement('input');
         school.classList ='form-control';
         school.setAttribute('type', 'text');
-        school.setAttribute('placeholder', 'School Name');
+        if(education[i].school === '') {
+            school.setAttribute('placeholder', 'School Name');
+        } else {
+            school.value = education[i].school;
+        }
         //insert input into school div
         schoolCol.appendChild(school)
         schoolDiv.appendChild(schoolCol);
@@ -141,7 +155,11 @@ var renderEducation = function() {
         var year = document.createElement('input');
         year.classList = 'form-control';
         year.setAttribute('type', 'text');
-        year.setAttribute('placeholder', 'Year Earned');
+        if(education[i].yearEarned === '') {
+            year.setAttribute('placeholder', 'Year Earned');
+        } else {
+            year.value = education[i].yearEarned;
+        }
         //add input to div
         yearCol.appendChild(year)
         yearDiv.appendChild(yearCol);
@@ -163,8 +181,7 @@ var renderEducation = function() {
         }
         educationForm.addEventListener('change', function(e) {
             e.preventDefault();
-            console.log(e)
-            editEdu(education[i].id, earnedInput.value.trim(), school.value.trim(), year.value.trim())
+            editEdu(i, earnedInput.value.trim(), school.value.trim(), year.value.trim())
         })
     }
 }
@@ -182,7 +199,12 @@ var renderSkills = function() {
         skillBox.classList = 'form-control mb-3';
         skillBox.setAttribute('type', 'text');
         skillBox.setAttribute('name', 'skill');
-        skillBox.setAttribute('placeholder', 'Skill');
+        console.log(skills[i].name)
+        if(skills[i].name === '') {
+            skillBox.setAttribute('placeholder', 'Skill');
+        } else {
+            skillBox.value = skills[i].name;
+        }
         var skilldelbox = document.createElement('div');
         skilldelbox.classList = 'col-md 6';
         var skilldelBtn = document.createElement('button');
@@ -213,8 +235,11 @@ var renderSkills = function() {
             skillsect.appendChild(addskillbox);
             addskillbtn.addEventListener('click',addSkill);
         }
+        skillrow.addEventListener('change', function(e) {
+            e.preventDefault();
+            editSkill(i, skillBox.value.trim());
+        })
     }
-    
 };
 
 var renderJobs = function() {
@@ -222,6 +247,8 @@ var renderJobs = function() {
     jobSection.innerHTML = "";
     let jobsLen = jobs.length;
     for(let i = 0; i < jobs.length; i++){
+        //create div to insert into pastjob area
+        var jobdiv = document.createElement('div');
         //create title
         var titleDiv = document.createElement('div');
         titleDiv.classList = "row";
@@ -253,7 +280,11 @@ var renderJobs = function() {
         jobTitle.setAttribute('type', 'text');
         jobTitle.setAttribute('name', 'worktitle');
         jobTitle.setAttribute('id', `pastjobtitle${i}`);
-        jobTitle.setAttribute('placeholder', 'Job Title');
+        if(jobs[i].jobTitle === '') {
+            jobTitle.setAttribute('placeholder', 'Job Title');
+        } else {
+            jobTitle.value = jobs[i].jobTitle
+        }
         //insert job title into col div then into row div
         firstBox.appendChild(jobTitle);
         jobInfo.appendChild(firstBox);
@@ -265,7 +296,11 @@ var renderJobs = function() {
         companyName.setAttribute('type', 'text');
         companyName.setAttribute('name', 'workcompany');
         companyName.setAttribute('id', `pastjobcompany${i}`);
-        companyName.setAttribute('placeholder', 'Company');
+        if(jobs[i].company === '') {
+            companyName.setAttribute('placeholder', 'Company');
+        } else {
+            companyName.value = jobs[i].company;
+        }
         //insert company into col div then into row div
         secondbox.appendChild(companyName);
         jobInfo.appendChild(secondbox);
@@ -280,7 +315,11 @@ var renderJobs = function() {
         summary.classList ='form-control mt-3';
         summary.setAttribute('name', 'jobsummary');
         summary.setAttribute('id', `jobsummary${i}`);
-        summary.setAttribute('placeholder', 'Job Summary');
+        if(jobs[i].summary === '') {
+            summary.setAttribute('placeholder', 'Job Summary');
+        } else {
+            summary.value = jobs[i].summary;
+        }
         summary.setAttribute('cols', '51');
         summary.setAttribute('rows', '5')
         //add summary to col div then to row
@@ -296,6 +335,10 @@ var renderJobs = function() {
         sdate.classList = 'form-control';
         sdate.setAttribute('type', 'date');
         sdate.setAttribute('id', 'startdateinputfield');
+        console.log(jobs[i].startdate);
+        if(jobs[i].startDate !== '') {
+            sdate.value = jobs[i].startDate;
+        }
         //add label and input to col div
         datesDiv.appendChild(sdateLabel);
         datesDiv.appendChild(sdate);
@@ -310,6 +353,9 @@ var renderJobs = function() {
         edate.classList = 'form-control';
         edate.setAttribute('type', 'date');
         edate.setAttribute('id', 'enddateinputfield');
+        if(jobs[i].endDate !== '') {
+            edate.value = jobs[i].edate;
+        }
         var buttondiv = document.createElement('div');
         buttondiv.classList = 'row mt-3';
         var newjobbutton = document.createElement('button');
@@ -330,12 +376,18 @@ var renderJobs = function() {
         //add end date to second row
         secondRow.appendChild(edatecol);
         //add elements to job section
-        jobSection.appendChild(titleDiv);
-        jobSection.appendChild(jobInfo);
-        jobSection.appendChild(secondRow);
+        jobdiv.appendChild(titleDiv);
+        jobdiv.appendChild(jobInfo);
+        jobdiv.appendChild(secondRow);
         // add an hr for looks
         var anHr = document.createElement('hr');
-        jobSection.appendChild(anHr);
+        jobdiv.appendChild(anHr);
+        jobSection.appendChild(jobdiv);
+
+        jobdiv.addEventListener('change', function(e) {
+            e.preventDefault();
+            editJob(i, jobTitle.value.trim(), companyName.value.trim(), summary.value.trim(), sdate.value.trim(), edate.value.trim());
+        })
     }
     
 }
