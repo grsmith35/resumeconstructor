@@ -1,7 +1,3 @@
-console.log("It's working!");
-//const doc = require('./test');
-let jobcounter = 2;
-let educationcounter = 2;
 let jobs = [];
 let education = [];
 let skills = [];
@@ -10,20 +6,17 @@ const addEd = () => {
     education.push({
         id: Date.now(),
         degEarned: '',
-        school: '',
-        yearEarned: ''
+        school: ''
     })
     renderEducation();
 };
 
-const editEdu = (i, educationF, school, year ) => {
+const editEdu = (i, educationF, school,) => {
     let edufound = education[i];
     if(edufound) {
         education[i]['degEarned'] = educationF;
         education[i]['school'] = school;
-        education[i]['yearEarned'] = year;
     }
-    renderEducation();
 };
 
 const addSkill =() => {
@@ -36,7 +29,7 @@ const addSkill =() => {
 
 const editSkill = (i, skill) => {
     skills[i]['name'] = skill;
-    renderSkills();
+    console.log(skills)
 }
 
 const addJobs = () => {
@@ -57,7 +50,7 @@ const editJob = (i, jobtitle, company, summary, startd, endd) => {
     jobs[i]['summary'] = summary;
     jobs[i]['startDate'] = startd;
     jobs[i]['endDate'] = endd;
-    renderJobs();
+    //renderJobs();
 }
 
 var deleteEdu = (id) => {
@@ -115,10 +108,8 @@ var renderEducation = function() {
         var earnedInput = document.createElement('input');
         earnedInput.classList ='form-control';
         earnedInput.setAttribute('type', 'text');
-        console.log('hey'+education[i].degEarned+'sir')
         if(education[i].degEarned === '') {
-            console.log('in the if')
-            earnedInput.setAttribute('placeholder', 'Degree Earned')
+            earnedInput.setAttribute('placeholder', 'Degree Earned (e.g. "GED", "Associates")')
         } else {
             earnedInput.value = education[i].degEarned;
         }
@@ -146,25 +137,7 @@ var renderEducation = function() {
         schoolDiv.appendChild(schoolCol);
         //insert school div into education
         educationForm.appendChild(schoolDiv);
-        //create div for year earned div
-        var yearDiv = document.createElement('div');
-        yearDiv.classList = 'row';
-        var yearCol = document.createElement('div');
-        yearCol.classList = 'col-md-6 mb-3';
-        //create input box
-        var year = document.createElement('input');
-        year.classList = 'form-control';
-        year.setAttribute('type', 'text');
-        if(education[i].yearEarned === '') {
-            year.setAttribute('placeholder', 'Year Earned');
-        } else {
-            year.value = education[i].yearEarned;
-        }
-        //add input to div
-        yearCol.appendChild(year)
-        yearDiv.appendChild(yearCol);
         //add div to area
-        educationForm.appendChild(yearDiv);
         educationArea.appendChild(educationForm);
         if(i+1 === education.length) {
             //create the add additional school button
@@ -181,13 +154,12 @@ var renderEducation = function() {
         }
         educationForm.addEventListener('change', function(e) {
             e.preventDefault();
-            editEdu(i, earnedInput.value.trim(), school.value.trim(), year.value.trim())
+            editEdu(i, earnedInput.value.trim(), school.value.trim())
         })
     }
 }
 
 var renderSkills = function() {
-    console.log(skills)
     var skillsect = document.querySelector("#skillsarea");
     skillsect.innerHTML = "";
     for(let i = 0; i < skills.length; i++) {
@@ -201,7 +173,7 @@ var renderSkills = function() {
         skillBox.setAttribute('name', 'skill');
         console.log(skills[i].name)
         if(skills[i].name === '') {
-            skillBox.setAttribute('placeholder', 'Skill');
+            skillBox.setAttribute('placeholder', 'Skill (e.g. "Forklift", "Lead experience")');
         } else {
             skillBox.value = skills[i].name;
         }
@@ -335,7 +307,6 @@ var renderJobs = function() {
         sdate.classList = 'form-control';
         sdate.setAttribute('type', 'date');
         sdate.setAttribute('id', 'startdateinputfield');
-        console.log(jobs[i].startdate);
         if(jobs[i].startDate !== '') {
             sdate.value = jobs[i].startDate;
         }
@@ -392,16 +363,55 @@ var renderJobs = function() {
     
 }
 
-var createResume = function() {
+async function createResume() {
     const address = document.querySelector('#address-2').value.trim();
-    const fullName = document.querySelector('#gfull-name').value.trim();
+    const fullName = document.querySelector('#full-name').value.trim();
     const addressLineTwo = document.querySelector('#address-2').value.trim();
     const city = document.querySelector('#city').value.trim();
     const state = document.querySelector('#state').value.trim();
     const zip = document.querySelector('#zip').value.trim();
     const phone = document.querySelector('#number').value.trim();
     const email = document.querySelector('#email').value.trim();
-    doc(fullName, address, city, state, zip, phone, email);
+    const curJob = document.querySelector('#notworkingbox');
+    const currentjob = [];
+    if(curJob.checked === true) {
+        const cJobtitle = document.querySelector('#currentjobtitle');
+        const cjobcompany = document.querySelector('#currentjobcompany');
+        const cjobdescription = document.querySelector("#currentjobdescription");
+        const cjobstartdate = document.querySelector('#dateinputfield');
+        currentjob.push(cjobcompany, cJobtitle, cjobdescription, cjobstartdate)
+    }
+    const response = await fetch('/create', {
+        method: 'POST',
+        body: JSON.stringify({
+            fullName,
+            address,
+            city,
+            state,
+            addressLineTwo,
+            zip,
+            phone,
+            email,
+            currentjob,
+            jobs,
+            education,
+            skills
+        }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    if(response.ok) {
+        console.log('sent it.')
+        const downloadlink = document.createElement('a');
+        downloadlink.setAttribute('href', '#');
+        downloadlink.setAttribute('download', 'downloadedresume.docx');
+        downloadlink.textContent = 'Download Resume'
+        //downloadlink.style.display = 'none';
+        const createArea = document.querySelector('#createArea');
+        createArea.appendChild(downloadlink);
+    }
 };
 
 addJobs();
